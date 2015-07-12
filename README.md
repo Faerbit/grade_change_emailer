@@ -3,7 +3,7 @@
 This is a simple python script that checks for new grades at the FH Aachen.
 
 ##Configuration
-Copy the example.ini to default.ini and fill it the necessary details.
+Copy the example.ini to default.ini and fill in the necessary details.
 
 ##Usage
 Run the script with `python3 main.py`.
