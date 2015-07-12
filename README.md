@@ -2,6 +2,9 @@
 
 This is a simple python script that checks for new grades at the FH Aachen.
 
+##Dependencies
+This scripts depends on **Python 3**, the **requests** and the **BeautifulSoup4** package from python.
+
 ##Configuration
 Copy the example.ini to default.ini and fill in the necessary details.
 
