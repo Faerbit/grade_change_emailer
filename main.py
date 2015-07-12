@@ -79,7 +79,7 @@ class GradeChangeEmailer:
 
         if old_html_table != html_table:
             mail_text = "<head> <meta charset='utf-8'></head><body>"
-            mail_text = "Es gab Änderungen in deinen Noten:\n"
+            mail_text += "Es gab Änderungen in deinen Noten:\n"
             mail_text += html_table
             mail_text += "</body>"
             self.send_mail(mail_text)
