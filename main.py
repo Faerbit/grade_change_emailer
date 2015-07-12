@@ -16,6 +16,7 @@ class GradeChangeEmailer:
         """Reads in config from config_path (default: default.ini)
         and sets configuration accordingly."""
 
+        # Change working dir to script dir
         abspath = os.path.abspath(__file__)
         dir_name = os.path.dirname(abspath)
         os.chdir(dir_name)
