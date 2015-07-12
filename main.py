@@ -74,8 +74,6 @@ class GradeChangeEmailer:
         for table in grade_soup.find_all("table"):
             if table.find("tr").find("th"):
                 html_table = str(table)
-                with open("table.html", "w") as file:
-                    file.write(html_table)
 
         if old_html_table != html_table:
             mail_text = "<head> <meta charset='utf-8'></head><body>"
@@ -83,6 +81,8 @@ class GradeChangeEmailer:
             mail_text += html_table
             mail_text += "</body>"
             self.send_mail(mail_text)
+            with open("table.html", "w") as file:
+                file.write(html_table)
 
 
 if __name__ == "__main__":
