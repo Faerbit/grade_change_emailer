@@ -27,6 +27,10 @@ class GradeChangeEmailer:
             self.mail_adress        = config["Email"]["Adress"]
             self.mail_server        = config["Email"]["Server"]
             self.mail_password      = config["Email"]["Password"]
+            if config["Email"]["User"]:
+                self.mail_user      = config["Email"]["User"]
+            else:
+                self.mail_user      = self.mail_adress
             self.qis_user           = config["QIS"]["Username"]
             self.qis_password       = config["QIS"]["Password"]
         else:
@@ -43,7 +47,7 @@ class GradeChangeEmailer:
 
         server = SMTP(self.mail_server)
         server.starttls()
-        server.login(self.mail_adress, self.mail_password)
+        server.login(self.mail_user, self.mail_password)
         server.sendmail(self.mail_adress, self.mail_adress, message.as_string())
         server.quit()
 
