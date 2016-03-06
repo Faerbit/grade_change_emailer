@@ -34,7 +34,7 @@ class GradeChangeEmailer:
             self.qis_user           = config["QIS"]["Username"]
             self.qis_password       = config["QIS"]["Password"]
         else:
-            print("Please provide a configuration file named 'default.ini'.")
+            print("Please provide a configuration file named '" + config_path + "'.")
             exit()
 
     def send_mail(self, text):
