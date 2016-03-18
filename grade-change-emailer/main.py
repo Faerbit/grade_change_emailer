@@ -21,7 +21,8 @@ class GradeChangeEmailer:
         dir_name = os.path.dirname(abspath)
         os.chdir(dir_name)
 
-        config_file_locations = [ dir_name + "/" + config_path, "/etc/grade-change-emailer.ini" ]
+        config_file_locations = [ os.path.join(dir_name, config_path),
+                "/etc/grade-change-emailer.ini" ]
 
         if os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"):
             config_file_locations.append(os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"))
