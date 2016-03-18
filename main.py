@@ -21,20 +21,27 @@ class GradeChangeEmailer:
         dir_name = os.path.dirname(abspath)
         os.chdir(dir_name)
 
-        if os.path.isfile(config_path):
-            config = configparser.ConfigParser()
-            config.read(config_path)
-            self.mail_adress        = config["Email"]["Adress"]
-            self.mail_server        = config["Email"]["Server"]
-            self.mail_password      = config["Email"]["Password"]
-            if config["Email"]["User"]:
-                self.mail_user      = config["Email"]["User"]
-            else:
-                self.mail_user      = self.mail_adress
-            self.qis_user           = config["QIS"]["Username"]
-            self.qis_password       = config["QIS"]["Password"]
+        config_file_locations = [ dir_name + "/" + config_path, "/etc/grade-change-emailer.ini" ]
+
+        if os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"):
+            config_file_locations.append(os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"))
+
+        for cfg_file in config_file_locations:
+            if os.path.isfile(cfg_file):
+                config = configparser.ConfigParser()
+                config.read(config_path)
+                self.mail_adress        = config["Email"]["Adress"]
+                self.mail_server        = config["Email"]["Server"]
+                self.mail_password      = config["Email"]["Password"]
+                if config["Email"]["User"]:
+                    self.mail_user      = config["Email"]["User"]
+                else:
+                    self.mail_user      = self.mail_adress
+                self.qis_user           = config["QIS"]["Username"]
+                self.qis_password       = config["QIS"]["Password"]
         else:
-            print("Please provide a configuration file named '" + config_path + "'.")
+            print("Please provide a configuration file named "
+                    + " or ".join(map(lambda x: "'" + str(x) + "'", config_file_locations)) + ".")
             exit()
 
     def send_mail(self, text):
