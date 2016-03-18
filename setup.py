@@ -1,5 +1,5 @@
 import subprocess
-from setuptools import setup
+from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
@@ -15,16 +15,16 @@ except:
         readme = f.read()
 
 setup(
-    name='grade-change-emailer',
-    version='0.1.0',
+    name = 'grade_change_emailer',
+    version = '0.1.0',
 
-    license='MIT',
-    description="Checks for changes in your grades at the FH Aachen",
-    long_description=readme,
-    url='https://github.com/faerbit/grade-change-emailer',
-    author="Faerbit",
-    author_email='faerbit at gmail dot com',
-    classifiers=[
+    license = 'MIT',
+    description = "Checks for changes in your grades at the FH Aachen",
+    long_description = readme,
+    url = 'https://github.com/faerbit/grade_change_emailer',
+    author = "Faerbit",
+    author_email = 'faerbit at gmail dot com',
+    classifiers = [
         'Development Status :: 4 - Beta',
         'License :: OSI Approved :: MIT License',
         'Environment :: Console',
@@ -37,15 +37,19 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
     ],
 
-    packages=['grade-change-emailer'],
-    install_requires=[
+    packages = ['grade_change_emailer'],
+    install_requires = [
         'beautifulsoup4',
         'requests',
     ],
 
-    entry_points={
+    package_data = {
+        "": ["example.ini"],
+    },
+
+    entry_points = {
         'console_scripts': [
-            'grade-change-emailer = grade-change-emailer.main:main',
+            'grade_change_emailer = grade_change_emailer.main:main',
         ],
     },
 )
