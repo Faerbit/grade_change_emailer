@@ -97,7 +97,9 @@ class GradeChangeEmailer:
             with open("table.html", "w") as file:
                 file.write(html_table)
 
-
-if __name__ == "__main__":
+def main():
     emailer = GradeChangeEmailer()
     emailer.check()
+
+if __name__ == "__main__":
+    main()
