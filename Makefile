@@ -1,6 +1,6 @@
 all: build
 
-build:
+build: clean
 	python setup.py sdist bdist
 
 upload: clean build
