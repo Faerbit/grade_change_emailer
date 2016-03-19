@@ -3,7 +3,7 @@ all: build
 build:
 	python setup.py sdist bdist
 
-upload: build
+upload: clean build
 	twine upload dist/*
 
 clean:
