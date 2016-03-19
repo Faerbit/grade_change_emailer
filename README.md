@@ -3,10 +3,10 @@
 This is a simple python script that checks for new grades at the FH Aachen.
 
 ##Configuration
-Copy the `example.ini` to `default.ini` in the package directory and fill in the
-necessary details. You can also place a configuration file under
-`/etc/grade_change_emailer.ini` or specify a custom location via env variable
-`GRADE_CHANGE_EMAILER_CONFIG_FILE`.
+Copy the `example.ini` to `default.ini` in your OS-specfic user config
+directory and fill in the necessary details. You can also place a configuration
+file under `/etc/grade_change_emailer.ini` or specify a custom location via env
+variable `GRADE_CHANGE_EMAILER_CONFIG_FILE`.
 
 ##Usage
 Run the script with `grade_change_emailer`.
@@ -18,7 +18,7 @@ You might want to schedule this script with something like **cron** to automate
 the grade checking.
 
 ##Dependencies
-This scripts depends on **Python 3**, the **requests** and the
+This scripts depends on **Python 3**, the **requests**, the **appdirs** and the
 **BeautifulSoup4** package from python.
 
 ##License

@@ -45,10 +45,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3 :: Only',
+        'Operating System :: OS Independent',
     ],
 
     packages = ['grade_change_emailer'],
     install_requires = [
+        'appdirs'
         'beautifulsoup4',
         'requests',
     ],
