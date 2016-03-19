@@ -1,36 +1,35 @@
 #!/usr/bin/env python3
 
 import configparser
+from os import path, environ
 
 import requests
 from bs4 import BeautifulSoup
-import os
 
 from smtplib import SMTP
 from email.mime.text import MIMEText
 
+from appdirs import AppDirs
+
 class GradeChangeEmailer:
     """Emails about changes in the grade page of the FH Aachen."""
 
-    def __init__(self, config_path="default.ini"):
+    def __init__(self, config_file="default.ini"):
         """Reads in config from config_path (default: default.ini)
         and sets configuration accordingly."""
 
-        # Change working dir to script dir
-        abspath = os.path.abspath(__file__)
-        dir_name = os.path.dirname(abspath)
-        os.chdir(dir_name)
+        self.dirs = AppDirs("grade_change_emailer", "faerbit")
 
-        config_file_locations = [ os.path.join(dir_name, config_path),
-                "/etc/grade_change_emailer.ini" ]
+        config_file_locations = [ path.join(self.dirs.user_config_dir, config_file) ]
 
-        if os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"):
-            config_file_locations.append(os.environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"))
+        if environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"):
+            config_file_locations.append(
+                    environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"))
 
         for cfg_file in config_file_locations:
-            if os.path.isfile(cfg_file):
+            if path.isfile(cfg_file):
                 config = configparser.ConfigParser()
-                config.read(config_path)
+                config.read(cfg_file)
                 self.mail_adress        = config["Email"]["Adress"]
                 self.mail_server        = config["Email"]["Server"]
                 self.mail_password      = config["Email"]["Password"]
@@ -62,9 +61,11 @@ class GradeChangeEmailer:
     def check(self):
         """Checks for changes in the grade page."""
 
+        grades_table_file = path.join(self.dirs.user_data_dir, "table.html")
+
         # get table from last run
-        if os.path.isfile("table.html"):
-            with open("table.html", "r") as file:
+        if os.path.isfile(grades_table_file):
+            with open(grades_table_file, "r") as file:
                 old_html_table = file.read()
         else:
             old_html_table = ""
@@ -94,7 +95,7 @@ class GradeChangeEmailer:
             mail_text += html_table
             mail_text += "</body>"
             self.send_mail(mail_text)
-            with open("table.html", "w") as file:
+            with open(grades_table_file, "w") as file:
                 file.write(html_table)
 
 def main():
