@@ -39,6 +39,7 @@ class GradeChangeEmailer:
                     self.mail_user      = self.mail_adress
                 self.qis_user           = config["QIS"]["Username"]
                 self.qis_password       = config["QIS"]["Password"]
+                break
         else:
             print("Please provide a configuration file named "
                     + " or ".join(map(lambda x: "'" + str(x) + "'", config_file_locations)) + ".")
