@@ -16,12 +16,14 @@ except:
         readme = f.read()
 
 def version():
-    number = subprocess.check_output(["git", "describe",
-        "--abbrev=0", "--tags"]).decode('utf-8')
-    number = number.replace("v", "")
+    tag = subprocess.check_output(["git", "describe",
+        "--abbrev=0", "--tags"]).decode('utf-8').strip()
+    tag = tag.replace("v", "")
+    commit_number = subprocess.check_output(["git", "rev-list",
+        "--count", "HEAD"]).decode('utf-8').strip()
     hash = subprocess.check_output(["git", "rev-parse",
-        "--short", "HEAD"]).decode('utf-8')
-    return number.strip() + "." + hash.strip()
+        "--short", "HEAD"]).decode('utf-8').strip()
+    return ".".join([tag, commit_number, hash])
 
 
 setup(
