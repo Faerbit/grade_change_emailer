@@ -104,7 +104,7 @@ class GradeChangeEmailer:
             mail_text += "</body>"
             self.send_mail(mail_text)
             if not path.exists(self.dirs.user_data_dir):
-                os.makedirs(self.dirs.user_data_dir)
+                makedirs(self.dirs.user_data_dir)
             with open(grades_table_file, "w") as file:
                 file.write(html_table)
 
