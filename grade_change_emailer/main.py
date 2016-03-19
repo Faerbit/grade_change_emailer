@@ -28,22 +28,29 @@ class GradeChangeEmailer:
 
         for cfg_file in config_file_locations:
             if path.isfile(cfg_file):
-                config = configparser.ConfigParser()
-                config.read(cfg_file)
-                self.mail_adress        = config["Email"]["Adress"]
-                self.mail_server        = config["Email"]["Server"]
-                self.mail_password      = config["Email"]["Password"]
-                if config["Email"]["User"]:
-                    self.mail_user      = config["Email"]["User"]
-                else:
-                    self.mail_user      = self.mail_adress
-                self.qis_user           = config["QIS"]["Username"]
-                self.qis_password       = config["QIS"]["Password"]
+                self.config = configparser.ConfigParser()
+                self.config.read(cfg_file)
+                self.mail_adress    = self.get_cfg_value("Email","Adress", True)
+                self.mail_server    = self.get_cfg_value("Email","Server", True)
+                self.mail_password  = self.get_cfg_value("Email", "Password", True)
+                self.mail_user      = self.get_cfg_value("Email", "User", False, self.mail_adress)
+                self.qis_user       = self.get_cfg_value("QIS", "Username", True)
+                self.qis_password   = self.get_cfg_value("QIS", "Password", True)
                 break
         else:
             print("Please provide a configuration file named "
                     + " or ".join(map(lambda x: "'" + str(x) + "'", config_file_locations)) + ".")
             exit()
+
+    def get_cfg_value(self, section, option, mandatory, fallback=None):
+        if self.config.get(section, option):
+            return self.config.get(section, option)
+        elif fallback == None and mandatory:
+            print("Please configure the '" + option + "' option in the '"
+                    + section + "' section in your config file.")
+            exit()
+        else:
+            return fallback
 
     def send_mail(self, text):
         """Sends mail with message text."""
