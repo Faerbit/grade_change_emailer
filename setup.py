@@ -15,13 +15,13 @@ except:
         readme = f.read()
 
 setup(
-    name = 'grade_change_emailer',
+    name = 'grade-change-emailer',
     version = '0.1.0',
 
     license = 'MIT',
     description = "Checks for changes in your grades at the FH Aachen",
     long_description = readme,
-    url = 'https://github.com/faerbit/grade_change_emailer',
+    url = 'https://github.com/faerbit/grade-change-emailer',
     author = "Faerbit",
     author_email = 'faerbit at gmail dot com',
     classifiers = [
@@ -49,7 +49,7 @@ setup(
 
     entry_points = {
         'console_scripts': [
-            'grade_change_emailer = grade_change_emailer.main:main',
+            'grade-change-emailer = grade_change_emailer.main:main',
         ],
     },
 )
