@@ -21,9 +21,7 @@ def version():
     tag = tag.replace("v", "")
     commit_number = subprocess.check_output(["git", "rev-list",
         "--count", "HEAD"]).decode('utf-8').strip()
-    hash = subprocess.check_output(["git", "rev-parse",
-        "--short", "HEAD"]).decode('utf-8').strip()
-    return ".".join([tag, commit_number, hash])
+    return ".".join([tag, commit_number])
 
 
 setup(
