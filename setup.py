@@ -2,7 +2,6 @@ import subprocess
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-import re
 
 here = path.abspath(path.dirname(__file__))
 readme = path.join(here, 'README.md')
@@ -18,8 +17,8 @@ except:
 
 def version():
     number = subprocess.check_output(["git", "describe",
-        "HEAD"]).decode('utf-8')
-    re.sub(r"v", "", number)
+        "--abbrev=0", "--tags"]).decode('utf-8')
+    number = number.replace("v", "")
     hash = subprocess.check_output(["git", "rev-parse",
         "--short", "HEAD"]).decode('utf-8')
     return number.strip() + "." + hash.strip()
