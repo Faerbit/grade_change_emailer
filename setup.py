@@ -2,6 +2,7 @@ import subprocess
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
+import re
 
 here = path.abspath(path.dirname(__file__))
 readme = path.join(here, 'README.md')
@@ -15,10 +16,18 @@ except:
     with open(readme, encoding='utf-8') as f:
         readme = f.read()
 
+def version():
+    number = subprocess.check_output(["git", "describe",
+        "HEAD"]).decode('utf-8')
+    re.sub(r"v", "", number)
+    hash = subprocess.check_output(["git", "rev-parse",
+        "--short", "HEAD"]).decode('utf-8')
+    return number.strip() + "." + hash.strip()
+
 
 setup(
     name = 'grade_change_emailer',
-    version = '0.1.0',
+    version = version(),
 
     license = 'MIT',
     description = "Checks for changes in your grades at the FH Aachen",
