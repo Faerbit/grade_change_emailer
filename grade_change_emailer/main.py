@@ -65,7 +65,7 @@ class GradeChangeEmailer:
         grades_table_file = path.join(self.dirs.user_data_dir, "table.html")
 
         # get table from last run
-        if os.path.isfile(grades_table_file):
+        if path.isfile(grades_table_file):
             with open(grades_table_file, "r") as file:
                 old_html_table = file.read()
         else:
