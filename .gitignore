@@ -1,3 +1,10 @@
+
+# Project specific stuff
 default.ini
 table.html
+
+# Python specific stuff
 __pycache__
+*.pyc
+/dist/
+/*.egg-info
