@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import configparser
-from os import path, environ
+from os import path, environ, makedirs
 
 import requests
 from bs4 import BeautifulSoup
@@ -103,6 +103,8 @@ class GradeChangeEmailer:
             mail_text += html_table
             mail_text += "</body>"
             self.send_mail(mail_text)
+            if not path.exists(self.dirs.user_data_dir):
+                os.makedirs(self.dirs.user_data_dir)
             with open(grades_table_file, "w") as file:
                 file.write(html_table)
 
