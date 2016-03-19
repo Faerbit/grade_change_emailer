@@ -9,19 +9,21 @@ readme = path.join(here, 'README.md')
 # Convert the README to reStructuredText for PyPI if pandoc is available.
 # Otherwise, just read it.
 try:
-    readme = subprocess.check_output(['pandoc', '-f', 'markdown', '-t', 'rst', readme]).decode('utf-8')
+    readme = subprocess.check_output(['pandoc', '-f', 'markdown',
+        '-t', 'rst', readme]).decode('utf-8')
 except:
     with open(readme, encoding='utf-8') as f:
         readme = f.read()
 
+
 setup(
-    name = 'grade-change-emailer',
+    name = 'grade_change_emailer',
     version = '0.1.0',
 
     license = 'MIT',
     description = "Checks for changes in your grades at the FH Aachen",
     long_description = readme,
-    url = 'https://github.com/faerbit/grade-change-emailer',
+    url = 'https://github.com/faerbit/grade_change_emailer',
     author = "Faerbit",
     author_email = 'faerbit at gmail dot com',
     classifiers = [
@@ -49,7 +51,7 @@ setup(
 
     entry_points = {
         'console_scripts': [
-            'grade-change-emailer = grade_change_emailer.main:main',
+            'grade_change_emailer = grade_change_emailer.main:main',
         ],
     },
 )
