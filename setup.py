@@ -50,7 +50,7 @@ setup(
 
     packages = ['grade_change_emailer'],
     install_requires = [
-        'appdirs'
+        'appdirs',
         'beautifulsoup4',
         'requests',
     ],
