@@ -4,6 +4,7 @@ default.ini
 table.html
 
 # Python specific stuff
+/build/
 __pycache__
 *.pyc
 /dist/
