@@ -20,7 +20,8 @@ class GradeChangeEmailer:
 
         self.dirs = AppDirs("grade_change_emailer", "faerbit")
 
-        config_file_locations = [ path.join(self.dirs.user_config_dir, config_file) ]
+        config_file_locations = [ path.join(self.dirs.user_config_dir,
+                                  config_file) ]
 
         if environ.get("GRADE_CHANGE_EMAILER_CONFIG_FILE"):
             config_file_locations.append(
@@ -32,14 +33,19 @@ class GradeChangeEmailer:
                 self.config.read(cfg_file)
                 self.mail_adress    = self.get_cfg_value("Email","Adress", True)
                 self.mail_server    = self.get_cfg_value("Email","Server", True)
-                self.mail_password  = self.get_cfg_value("Email", "Password", True)
-                self.mail_user      = self.get_cfg_value("Email", "User", False, self.mail_adress)
-                self.qis_user       = self.get_cfg_value("QIS", "Username", True)
-                self.qis_password   = self.get_cfg_value("QIS", "Password", True)
+                self.mail_password  = self.get_cfg_value("Email", "Password", 
+                                                         True)
+                self.mail_user      = self.get_cfg_value("Email", "User", False,
+                                                         self.mail_adress)
+                self.qis_user       = self.get_cfg_value("QIS", "Username",
+                                                         True)
+                self.qis_password   = self.get_cfg_value("QIS", "Password",
+                                                         True)
                 break
         else:
             print("Please provide a configuration file named "
-                    + " or ".join(map(lambda x: "'" + str(x) + "'", config_file_locations)) + ".")
+                    + " or ".join(map(lambda x: "'" + str(x) + "'",
+                        config_file_locations)) + ".")
             exit()
 
     def get_cfg_value(self, section, option, mandatory, fallback=None):
@@ -81,10 +87,13 @@ class GradeChangeEmailer:
         # Quality website right there:
         # asdf form field : username form field
         # fdsa form field : password form field
-        data = {"submit": "Ok", "asdf": self.qis_user, "fdsa": self.qis_password}
+        data = {"submit": "Ok", "asdf": self.qis_user,
+                "fdsa": self.qis_password}
         index_page = session.post("https://www.qis.fh-aachen.de/qisserver/"
                 "rds?state=user&type=1&category=auth.login&startpage=portal.vm",
                 data=data)
+        if index_page.status_code != 200:
+            raise Exception("Service not available")
         index_soup = BeautifulSoup(index_page.text, "html.parser")
         # find grade overview link
         for link in index_soup.find_all("a"):
