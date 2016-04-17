@@ -96,11 +96,15 @@ class GradeChangeEmailer:
             raise Exception("Service not available")
         index_soup = BeautifulSoup(index_page.text, "html.parser")
         # find grade overview link
+        grade_link = ""
         for link in index_soup.find_all("a"):
             # check if link is not None
             if link.get("href") and "notenspiegel" in link.get("href"):
                 grade_link = link.get("href")
-        grade_page = session.get(grade_link)
+        if grade_link:
+            grade_page = session.get(grade_link)
+        else:
+            raise Exception("Service not available")
         grade_soup = BeautifulSoup(grade_page.text, "html.parser")
         for table in grade_soup.find_all("table"):
             if table.find("tr").find("th"):
