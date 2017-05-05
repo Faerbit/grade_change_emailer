@@ -1,7 +1,7 @@
 all: build
 
 build: clean
-	python setup.py sdist bdist
+	python setup.py sdist bdist_wheel
 
 upload: clean build
 	twine upload dist/*
