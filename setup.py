@@ -17,7 +17,8 @@ except:
         readme = f.read()
 
 def version():
-    desc = subprocess.check_output(["git", "describe"]).decode('utf-8').strip()
+    desc = subprocess.check_output(["git", "describe", "--tags"]).decode(
+            'utf-8').strip()
     desc = desc.replace("v", "")
     desc = re.sub(r"-[\w]*$", "", desc)
     desc = desc.replace("-", ".")
