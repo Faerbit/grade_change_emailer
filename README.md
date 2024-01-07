@@ -1,3 +1,5 @@
+**Does not work anymore**
+
 # Grade Change Emailer
 
 This is a simple python script that checks for new grades at the FH Aachen.
